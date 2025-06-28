@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KL University Results</title>
+  <style>
+   body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url('principal.jpg');
+  background-repeat: left;
+  background-position: left;  /* 👈 Aligns image to the left vertically centered */
+  background-size: 100px;         /* 👈 Keeps image original size, or use "300px auto" */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+    .results-container {
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      border-radius: 15px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      color: #ffd700;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 16px;
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ffc107;
+    }
+
+    .result-display {
+      margin-top: 30px;
+    }
+
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #00c853;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      display: none;
+      z-index: 1000;
+    }
+
+    .popup.show {
+      display: block;
+      animation: fadeInOut 4s ease-in-out;
+    }
+
+    @keyframes fadeInOut {
+      0% {opacity: 0;}
+      10% {opacity: 1;}
+      90% {opacity: 1;}
+      100% {opacity: 0;}
+    }
+
+    .img-box {
+      margin-top: 20px;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    embed {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="results-container">
+  <h2> KL UNIVERSITY RESULTS </h2>
+
+  <label for="year">Select Academic Year</label>
+  <select id="year">
+    <option value="2023-2024">2023-2024</option>
+    <option value="2024-2025">2024-2025</option>
+  </select>
+
+  <label for="semester">Select Semester</label>
+  <select id="semester">
+    <option value="Odd">Odd</option>
+    <option value="Even">Even</option>
+  </select>
+
+  <button onclick="showResults()">View Results</button>
+
+  <div class="result-display" id="resultArea"></div>
+</div>
+
+<div class="popup" id="popup">Congratulations, You scored well. Fulfilled all credits (No pending credits and No Backlogs)</div>
+
+<script>
+  function showResults() {
+    const year = document.getElementById("year").value;
+    const sem = document.getElementById("semester").value;
+    const resultArea = document.getElementById("resultArea");
+    const popup = document.getElementById("popup");
+
+    resultArea.innerHTML = ""; // Clear previous
+
+    if (year === "2023-2024") {
+      // Show no schedule message with placeholder image
+      resultArea.innerHTML = `
+        <p>No schedule to download</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/2748/2748558.png" width="150" class="img-box" />
+      `;
+    } else if (year === "2024-2025" && sem === "Odd") {
+      resultArea.innerHTML = `
+        <p>Your Result:</p>
+        <embed src="2_1.jpg" type="application/pdf" />
+      `;
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show"), 4000);
+    } else if (year === "2024-2025" && sem === "Even") {
+      resultArea.innerHTML = `
+        <p>Your Result:</p>
+        <embed src="2_2.jpg" type="application/pdf" />
+      `;
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show"), 4000);
+    }
+  }
+</script>
+
+</body>
+</html>
