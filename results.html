@@ -135,6 +135,8 @@
 <div class="popup" id="popup">Congratulations, You scored well. Fulfilled all credits (No pending credits and No Backlogs)</div>
 
 <script>
+  let currentResultPath = ""; // Store the selected result image
+
   function showResults() {
     const year = document.getElementById("year").value;
     const sem = document.getElementById("semester").value;
@@ -142,30 +144,37 @@
     const popup = document.getElementById("popup");
 
     resultArea.innerHTML = ""; // Clear previous
+    currentResultPath = ""; // Reset path
 
     if (year === "2023-2024") {
-      // Show no schedule message with placeholder image
       resultArea.innerHTML = `
         <p>No schedule to download</p>
         <img src="https://cdn-icons-png.flaticon.com/512/2748/2748558.png" width="150" class="img-box" />
       `;
     } else if (year === "2024-2025" && sem === "Odd") {
+      currentResultPath = "2_1.jpg";
       resultArea.innerHTML = `
-        <p>Your Result:</p>
-        <embed src="2_1.jpg" type="application/pdf" />
+        <button onclick="previewResult()">Preview Result</button>
       `;
-      popup.classList.add("show");
-      setTimeout(() => popup.classList.remove("show"), 4000);
     } else if (year === "2024-2025" && sem === "Even") {
+      currentResultPath = "2_2.jpg";
       resultArea.innerHTML = `
-        <p>Your Result:</p>
-        <embed src="2_2.jpg" type="application/pdf" />
+        <button onclick="previewResult()">Preview Result</button>
       `;
-      popup.classList.add("show");
-      setTimeout(() => popup.classList.remove("show"), 4000);
+    }
+  }
+
+  function previewResult() {
+    const resultArea = document.getElementById("resultArea");
+    if (currentResultPath) {
+      resultArea.innerHTML = `
+        <img src="${currentResultPath}" class="img-box" style="max-width:100%; border-radius:10px;" />
+      `;
     }
   }
 </script>
+
+
 
 </body>
 </html>
